@@ -48,6 +48,9 @@ class App extends React.Component {
     if(playerMoves.length == correctMoves.length) {
       if(JSON.stringify(playerMoves) == JSON.stringify(correctMoves)) {
         correctMoves.push(Math.floor((Math.random() * 4) + 1));
+        for(let i=1; i<=4; i++) {
+          document.getElementById(`box${i}`).style.pointerEvents = "none";
+        }
         for(let i=0; i<correctMoves.length; i++) {
           setTimeout(function() {
             document.getElementById(`box${correctMoves[i]}`).style.backgroundColor = "grey";
@@ -56,6 +59,11 @@ class App extends React.Component {
             document.getElementById(`box${correctMoves[i]}`).style.backgroundColor = colors[correctMoves[i]-1];
           }, 1000*i+1500);
         }
+        setTimeout(function() {
+          for(let i=1; i<=4; i++) {
+            document.getElementById(`box${i}`).style.pointerEvents = "auto";
+          }
+        }, 1000*(correctMoves.length-1)+1500);
         playerMoves = [];
         this.setState({
           counter: this.state.counter + 1
@@ -77,12 +85,18 @@ class App extends React.Component {
       document.getElementById(`box${i}`).style.cursor = "pointer";
       document.getElementById(`box${i}`).addEventListener("click", this.buttonsClick);
     }
+    for(let i=1; i<=4; i++) {
+      document.getElementById(`box${i}`).style.pointerEvents = "none";
+    }
     correctMoves.push(Math.floor((Math.random() * 4) + 1));
     setTimeout(function() {
       document.getElementById(`box${correctMoves[0]}`).style.backgroundColor = "grey";
     }, 1000);
     setTimeout(function() {
       document.getElementById(`box${correctMoves[0]}`).style.backgroundColor = colors[correctMoves[0]-1];
+      for(let i=1; i<=4; i++) {
+        document.getElementById(`box${i}`).style.pointerEvents = "auto";
+      }
     }, 1500);
   }
 
