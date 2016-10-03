@@ -119,19 +119,27 @@
 	      if (playerMoves.length == correctMoves.length) {
 	        if (JSON.stringify(playerMoves) == JSON.stringify(correctMoves)) {
 	          correctMoves.push(Math.floor(Math.random() * 4 + 1));
+	          for (var i = 1; i <= 4; i++) {
+	            document.getElementById('box' + i).style.pointerEvents = "none";
+	          }
 
-	          var _loop = function _loop(i) {
+	          var _loop = function _loop(_i) {
 	            setTimeout(function () {
-	              document.getElementById('box' + correctMoves[i]).style.backgroundColor = "grey";
-	            }, 1000 * i + 1000);
+	              document.getElementById('box' + correctMoves[_i]).style.backgroundColor = "grey";
+	            }, 1000 * _i + 1000);
 	            setTimeout(function () {
-	              document.getElementById('box' + correctMoves[i]).style.backgroundColor = colors[correctMoves[i] - 1];
-	            }, 1000 * i + 1500);
+	              document.getElementById('box' + correctMoves[_i]).style.backgroundColor = colors[correctMoves[_i] - 1];
+	            }, 1000 * _i + 1500);
 	          };
 
-	          for (var i = 0; i < correctMoves.length; i++) {
-	            _loop(i);
+	          for (var _i = 0; _i < correctMoves.length; _i++) {
+	            _loop(_i);
 	          }
+	          setTimeout(function () {
+	            for (var _i2 = 1; _i2 <= 4; _i2++) {
+	              document.getElementById('box' + _i2).style.pointerEvents = "auto";
+	            }
+	          }, 1000 * (correctMoves.length - 1) + 1500);
 	          playerMoves = [];
 	          this.setState({
 	            counter: this.state.counter + 1
@@ -154,12 +162,18 @@
 	        document.getElementById('box' + i).style.cursor = "pointer";
 	        document.getElementById('box' + i).addEventListener("click", this.buttonsClick);
 	      }
+	      for (var _i3 = 1; _i3 <= 4; _i3++) {
+	        document.getElementById('box' + _i3).style.pointerEvents = "none";
+	      }
 	      correctMoves.push(Math.floor(Math.random() * 4 + 1));
 	      setTimeout(function () {
 	        document.getElementById('box' + correctMoves[0]).style.backgroundColor = "grey";
 	      }, 1000);
 	      setTimeout(function () {
 	        document.getElementById('box' + correctMoves[0]).style.backgroundColor = colors[correctMoves[0] - 1];
+	        for (var _i4 = 1; _i4 <= 4; _i4++) {
+	          document.getElementById('box' + _i4).style.pointerEvents = "auto";
+	        }
 	      }, 1500);
 	    }
 	  }, {
